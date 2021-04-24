@@ -1,0 +1,22 @@
+{
+  "name": "team-project-gen",
+  "version": "1.0.0",
+  "description": "To generate group layout",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phil-stew/Team-project-gen.git"
+  },
+  "author": "Phillip Stewart",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/phil-stew/Team-project-gen/issues"
+  },
+  "homepage": "https://github.com/phil-stew/Team-project-gen#readme",
+  "dependencies": {
+    "inquirer": "^8.0.0"
+  }
+}
