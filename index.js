@@ -36,7 +36,7 @@ const contine = () => {
             init()
         } else {
             try {
-               finished()
+                finished()
             } catch (err) {
                 return console.error(err);
             }
@@ -150,7 +150,7 @@ const init = () => {
 
 
             } else if (answer.role === 'Engineer') {
-                
+
                 getEngineer()
 
             } else if (answer.role === 'Manager') {
@@ -158,8 +158,9 @@ const init = () => {
 
 
             } else {
+                finished()
 
-                console.log('hehe')
+                console.log('Thank you')
             }
 
         })
@@ -169,108 +170,116 @@ const init = () => {
 
 
 let htmlCards = (res) => {
-console.log('res', res)
 
-const internCard = (res) => {
-    console.log(res)
-    return `
-        <div style=" border: black; border:solid; margin: 10px; padding: 5px;" class="col-sm b m">
+
+    const internCard = (res) => {
+
+        return `
+        <div style=" border: black; border:solid; margin: 10px; padding: 5px;" class="row-sm b m">
            <div class="col" style="font-size: 15px; background-color: blue; color:yellow; align-content: center; ">
             <h1  style="font-size: 21px; text-align: left; padding: 10px; margin: 5px;" >${res.name}</h1>
             <h1  style="font-size: 21px; text-align:right; padding: 10px; margin: 5px;">  Intern </h1>
            </div>
             <div class="col" style=" border: black; border: solid .5px; ">
-               ID: ${res.id}
+               ID: ${res.Id}
               </div>
               <div class="col" style=" border: black; border:solid .5px; ">
                Email: ${res.email}
               </div>
               <div class="col" style=" border: black; border:solid .5px; ">
                 School: ${res.school}
+              </div>
               </div>`
-      
- }
 
- const managerCard = (res) => {
-    console.log(res)
-    return `
+    }
+
+    const managerCard = (res) => {
+
+        return `
  
-        <div style=" border: black; border:solid; margin: 10px; padding: 5px;" class="col-sm b m">
+        <div style=" border: black; border:solid; margin: 10px; padding: 5px;" class="row-sm b m">
            <div class="col" style="font-size: 15px; background-color: blue; color:yellow; align-content: center; ">
             <h1  style="font-size: 21px; text-align: left; padding: 10px; margin: 5px;" >${res.name}</h1>
             <h1  style="font-size: 21px; text-align:right; padding: 10px; margin: 5px;">  Manager </h1>
            </div>
             <div class="col" style=" border: black; border: solid .5px; ">
-               ID: ${res.id}
+               ID: ${res.Id}
               </div>
               <div class="col" style=" border: black; border:solid .5px; ">
                Email: ${res.email}
               </div>
               <div class="col" style=" border: black; border:solid .5px; ">
                 Office Num: ${res.officen}
-              </div>`
- }
+              </div>
+              </div>
+              `
+    }
 
- const engineerCard = (res) => {
-    console.log(res)
-    return `
+    const engineerCard = (res) => {
+
+        return `
     
-        <div style=" border: black; border:solid; margin: 10px; padding: 5px;" class="col-sm b m">
+        <div style=" border: black; border:solid; margin: 10px; padding: 5px;" class="row-sm b m">
            <div class="col" style="font-size: 15px; background-color: blue; color:yellow; align-content: center; ">
             <h1  style="font-size: 21px; text-align: left; padding: 10px; margin: 5px;" >${res.name}</h1>
             <h1  style="font-size: 21px; text-align:right; padding: 10px; margin: 5px;">  Engineer </h1>
            </div>
             <div class="col" style=" border: black; border: solid .5px; ">
-               ID: ${res.id}
+               ID: ${res.Id}
               </div>
               <div class="col" style=" border: black; border:solid .5px; ">
                Email: ${res.email}
               </div>
               <div class="col" style=" border: black; border:solid .5px; ">
                 GitHub: ${res.github}
-              </div> `  
- }
+              </div>
+              </div> `
+    }
 
-const page = []
+    const page = []
 
-page.push(res.filter(role => role.getRole()=== "Engineer").map(engineer => engineerCard(engineer)))
-page.push(res.filter(role => role.getRole()=== "Intern").map(intern => internCard(intern)))
-page.push(res.filter(role => role.getRole()=== "Manager").map(manager => managerCard(manager)))
-return page.join('')
+    page.push(res.filter(role => role.getRole() === "Engineer").map(engineer => engineerCard(engineer)))
+    page.push(res.filter(role => role.getRole() === "Intern").map(intern => internCard(intern)))
+    page.push(res.filter(role => role.getRole() === "Manager").map(manager => managerCard(manager)))
+    return page.join(" ")
 
 }
-      
+
 const htmlpage = teamArr => {
     return `
     <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
-    <title>Employee Setup Page</title>
-</head>
-
-<body style="background-color: rgb(188, 181, 218);">
-
-<h1 style="background-color: blue; color:yellow; padding: 20px; border: 15px; text-align: center; ">Employee</h1>
-
-
-    <div class="day row container  ">
-    ${htmlCards(teamArr)}
+    <html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+        <title>Employee Setup Page</title>
+    </head>
+    
+    <body style="background-color: rgb(188, 181, 218);">
+    
+    <h1 style="background-color: blue; color:yellow; padding: 20px; border: 15px; text-align: center; ">Employee</h1>
     
     
-    </div>
+        <div class=" container  ">
+        <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3"  style="margin: .5rem; padding: .5rem;" >
+
+    ${htmlCards(teamArr, ) }
+    
+       </div>   
+       </div> 
+    
     </body>
     </html>
     `
 }
 
-const finished =() =>{
-    fs.writeFileSync('Team-EX.html',htmlpage(teamArr) )
+const finished = () => {
+    fs.writeFileSync('Team-EX.html', htmlpage(teamArr), "utf-8")
+    console.log("finished creating team page")
 }
 
 
