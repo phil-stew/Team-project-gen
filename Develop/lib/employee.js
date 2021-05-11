@@ -20,6 +20,12 @@ class Employee {
     return "Employee"
   }
 
+  getHTML(){
+    return 
+    `
+    `
+  }
+
 
 }
 

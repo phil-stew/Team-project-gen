@@ -16,3 +16,19 @@ getOfficen(){
 }
 
 module.exports = Manager
+
+/*switch(choices){
+    case 'Engineer' : getName(), getId(), getEmail(), getGithub();
+    break;
+
+    case 'Intern' : getName(), getId(), getEmail(), getSchool();
+    break;
+
+    case 'Manager' : getName(), getId(), getEmail(), getOfficen();
+    break;
+
+    case 'No More' : document.write("finished <br />")
+    break;
+
+    default : document.write("try again should only have one role selected<br/>")
+}*/

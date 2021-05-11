@@ -2,120 +2,279 @@ const inquirer = require("inquirer");
 const Intern = require("./Develop/lib/intern");
 const Manager = require("./Develop/lib/manager");
 const Engineer = require("./Develop/lib/engineer");
-
-
-
-// Start playing
-
+const teamArr = [];
+const fs = require('fs');
+const util = require('util');
 
 
 
 
 const getRole = () => {
     return inquirer.prompt([
-   {
-    type: 'checkbox',
-    message: 'Please select the role of the empolyee!',
-    name: 'role',
-    choices: ['Engineer', 'Intern','Manger',]
-
-    }
-])
-} 
-
-const getName = () =>{
-    return inquirer.prompt([
         {
-            type: 'input',
-            message: 'What is the name of the employee?',
-            name: 'name', 
-        },
-])
+            type: 'list',
+            message: 'Please select the role of the empolyee!',
+            name: 'role',
+            choices: ['Engineer', 'Intern', 'Manager', 'No one to add']
 
+        }
+    ])
 }
 
-const getId = () =>{
+
+// Start playing
+const contine = () => {
     return inquirer.prompt([
+        {
+            type: 'confirm',
+            message: 'Do you wish to add more empolyee!',
+            name: 'ok',
+
+        }
+    ]).then((res) => {
+        if (res.ok) {
+            init()
+        } else {
+            try {
+               finished()
+            } catch (err) {
+                return console.error(err);
+            }
+        }
+    })
+}
+
+const getEngineer = () => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the name of your engineer?',
+            name: 'name',
+        },
         {
             type: 'input',
             message: 'What is the id of the employee?',
-            name: 'Id', 
+            name: 'id',
         },
-])
-
-}
-
-const getEmail = () =>{
-    return inquirer.prompt([
         {
             type: 'input',
             message: 'What is the email of the employee?',
-            name: 'Id', 
+            name: 'email',
         },
-])
-
-}
-
-const getOfficen = () =>{
-    return inquirer.prompt([
-        {
-            type: 'input',
-            message: 'What is the offiec number for employee?',
-            name: 'officen', 
-        },
-])
-
-}
-
-const getGithub = () =>{
-    return inquirer.prompt([
         {
             type: 'input',
             message: 'What is the GITHUB of the employee?',
-            name: 'github', 
-        },
-])
-
+            name: 'github',
+        }
+    ]).then(res => {
+        const engineer = new Engineer(res.name, res.id, res.email, res.github)
+        teamArr.push(engineer)
+        console.log("engineer", engineer)
+        console.log("teamArr", teamArr)
+        contine();
+    })
 }
 
-const getSchool = () =>{
-    return inquirer.prompt([
+
+const getIntern = () => {
+    inquirer.prompt([
         {
             type: 'input',
-            message: 'What school does the employee belong too?',
-            name: 'school', 
+            message: 'What is the name of your intern?',
+            name: 'name',
         },
-])
+        {
+            type: 'input',
+            message: 'What is the id of the intern?',
+            name: 'id',
+        },
+        {
+            type: 'input',
+            message: 'What is the email of the intern?',
+            name: 'email',
+        },
+        {
+            type: 'input',
+            message: 'What school does your intern go to?',
+            name: 'school',
+        }
+    ]).then(res => {
+        const intern = new Intern(res.name, res.id, res.email, res.school)
+        teamArr.push(intern)
+        console.log("intern", intern)
+        console.log("teamArr", teamArr)
+        contine()
+    })
+
+}
+
+const getManager = () => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the name of your Manager?',
+            name: 'name',
+        },
+        {
+            type: 'input',
+            message: 'What is the id of the Manager?',
+            name: 'id',
+        },
+        {
+            type: 'input',
+            message: 'What is the email of the Manager?',
+            name: 'email',
+        },
+        {
+            type: 'input',
+            message: 'What is the office number for Manager?',
+            name: 'officen',
+        }
+    ]).then(res => {
+        const manager = new Manager(res.name, res.id, res.email, res.officen)
+        teamArr.push(manager)
+        console.log("manager", manager)
+        console.log("teamArr", teamArr)
+        contine()
+    })
+
+}
+
+
+const init = () => {
+    getRole()
+        .then((answer) => {
+
+            if (answer.role === 'Intern') {
+                getIntern()
+
+
+            } else if (answer.role === 'Engineer') {
+                
+                getEngineer()
+
+            } else if (answer.role === 'Manager') {
+                getManager()
+
+
+            } else {
+
+                console.log('hehe')
+            }
+
+        })
 
 }
 
 
 
+let htmlCards = (res) => {
+console.log('res', res)
 
-
-
-
-
-
-const init = () =>{
- getRole()
- .then(choices) 
- switch(choices){
-     case 'Engineer' : getName(), getId(), getEmail(), getGithub();
-     break;
-
-     case 'Intern' : getName(), getId(), getEmail(), getSchool();
-     break;
-
-     case 'Manager' : getName(), getId(), getEmail(), getOfficen();
-     break;
-
-     case 'No More' : document.write("finished <br />")
-     break;
-
-     default : document.write("try again should only have one role selected<br/>")
+const internCard = (res) => {
+    console.log(res)
+    return `
+        <div style=" border: black; border:solid; margin: 10px; padding: 5px;" class="col-sm b m">
+           <div class="col" style="font-size: 15px; background-color: blue; color:yellow; align-content: center; ">
+            <h1  style="font-size: 21px; text-align: left; padding: 10px; margin: 5px;" >${res.name}</h1>
+            <h1  style="font-size: 21px; text-align:right; padding: 10px; margin: 5px;">  Intern </h1>
+           </div>
+            <div class="col" style=" border: black; border: solid .5px; ">
+               ID: ${res.id}
+              </div>
+              <div class="col" style=" border: black; border:solid .5px; ">
+               Email: ${res.email}
+              </div>
+              <div class="col" style=" border: black; border:solid .5px; ">
+                School: ${res.school}
+              </div>`
+      
  }
 
+ const managerCard = (res) => {
+    console.log(res)
+    return `
+ 
+        <div style=" border: black; border:solid; margin: 10px; padding: 5px;" class="col-sm b m">
+           <div class="col" style="font-size: 15px; background-color: blue; color:yellow; align-content: center; ">
+            <h1  style="font-size: 21px; text-align: left; padding: 10px; margin: 5px;" >${res.name}</h1>
+            <h1  style="font-size: 21px; text-align:right; padding: 10px; margin: 5px;">  Manager </h1>
+           </div>
+            <div class="col" style=" border: black; border: solid .5px; ">
+               ID: ${res.id}
+              </div>
+              <div class="col" style=" border: black; border:solid .5px; ">
+               Email: ${res.email}
+              </div>
+              <div class="col" style=" border: black; border:solid .5px; ">
+                Office Num: ${res.officen}
+              </div>`
+ }
+
+ const engineerCard = (res) => {
+    console.log(res)
+    return `
+    
+        <div style=" border: black; border:solid; margin: 10px; padding: 5px;" class="col-sm b m">
+           <div class="col" style="font-size: 15px; background-color: blue; color:yellow; align-content: center; ">
+            <h1  style="font-size: 21px; text-align: left; padding: 10px; margin: 5px;" >${res.name}</h1>
+            <h1  style="font-size: 21px; text-align:right; padding: 10px; margin: 5px;">  Engineer </h1>
+           </div>
+            <div class="col" style=" border: black; border: solid .5px; ">
+               ID: ${res.id}
+              </div>
+              <div class="col" style=" border: black; border:solid .5px; ">
+               Email: ${res.email}
+              </div>
+              <div class="col" style=" border: black; border:solid .5px; ">
+                GitHub: ${res.github}
+              </div> `  
+ }
+
+const page = []
+
+page.push(res.filter(role => role.getRole()=== "Engineer").map(engineer => engineerCard(engineer)))
+page.push(res.filter(role => role.getRole()=== "Intern").map(intern => internCard(intern)))
+page.push(res.filter(role => role.getRole()=== "Manager").map(manager => managerCard(manager)))
+return page.join('')
+
 }
+      
+const htmlpage = teamArr => {
+    return `
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <title>Employee Setup Page</title>
+</head>
+
+<body style="background-color: rgb(188, 181, 218);">
+
+<h1 style="background-color: blue; color:yellow; padding: 20px; border: 15px; text-align: center; ">Employee</h1>
+
+
+    <div class="day row container  ">
+    ${htmlCards(teamArr)}
+    
+    
+    </div>
+    </body>
+    </html>
+    `
+}
+
+const finished =() =>{
+    fs.writeFileSync('Team-EX.html',htmlpage(teamArr) )
+}
+
+
+
+
 
 init()
