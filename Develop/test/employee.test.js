@@ -2,23 +2,23 @@ const Employee = require('../lib/employee')
 
 describe("Employee class", () => {
     it("should have name, Id and email of employees", () => {
-      const employees = {}
-      expect(new Employee(employees)).toBe('{}')
+      const newEmployee = new Employee('phil', 5 ,'P@live.nm', 'role')
+      expect(typeof(newEmployee)).toBe('object')
     });
 
     it("getEmployeeName returns name string only", () =>{
-      const name = "Phil";
-        expect(new Employee(name)).toBe(name)
+      const newEmployee = new Employee('phil', 5 ,'P@live.nm', 'role')
+        expect(newEmployee.name).toBe('phil')
     })
 
     it("getEmployeeName returns the Id", () =>{
-      const id = 4578;
-        expect(new Employee(id)).toBe(id)
+      const newEmployee = new Employee('phil', 5 ,'P@live.nm', 'role')
+        expect(newEmployee.Id).toBe(5)
     })
 
     it("getEmployeeName returns email address", () =>{
-      const email = "pca";
-        expect(new Employee(email)).toBe(email)
+      const newEmployee = new Employee('phil', 5 ,'P@live.nm', 'role')
+        expect(newEmployee.email).toBe('P@live.nm')
     }
 
 )})
